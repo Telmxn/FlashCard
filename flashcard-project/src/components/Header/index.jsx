@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import Menu from "../Menu";
-import style from "./header.module.css";
+import "./header.css";
 
 const Header = () => {
   return (
     <header>
-      <Link to={"/"} className={style.logo}>
-        Logo
-      </Link>
-      <Menu />
+      <nav className="navbar">
+        <div className="max-width">
+          <div className="logo">
+            <Link to={"/"}>
+              Web<span>Flow</span>
+            </Link>
+          </div>
+          <Menu />
+        </div>
+      </nav>
     </header>
   );
 };
