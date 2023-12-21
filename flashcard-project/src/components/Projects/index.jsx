@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "./projects.css";
+import OwlCarousel from "react-owl-carousel";
+import "owl.carousel/dist/assets/owl.carousel.css";
 
 const Projects = () => {
   const arr = [
@@ -37,7 +39,28 @@ const Projects = () => {
     <section className="teams" id="teams">
       <div className="max-width">
         <h2 className="title">My Projects</h2>
-        <div className="carousel owl-carousel">
+        <OwlCarousel
+          className="carousel owl-carousel"
+          margin={20}
+          loop
+          autoplay
+          autoplayTimeout={2000}
+          autoplayHoverPause
+          responsive={{
+            0: {
+              items: 1,
+              nav: false,
+            },
+            600: {
+              items: 2,
+              nav: false,
+            },
+            1000: {
+              items: 3,
+              nav: false,
+            },
+          }}
+        >
           {arr.map((card) => {
             return (
               <div className="card" key={card.id}>
@@ -52,7 +75,7 @@ const Projects = () => {
               </div>
             );
           })}
-        </div>
+        </OwlCarousel>
       </div>
     </section>
   );

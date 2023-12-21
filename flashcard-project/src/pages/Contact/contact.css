@@ -46,16 +46,16 @@ textarea {
   color: #333;
 }
 
-.navbar {
+.navbar.fixed {
   position: fixed;
 }
 
-.navbar {
+.navbar.fixed {
   padding: 15px 0;
   background: var(--main-default);
 }
 
-.navbar .logo a span {
+.navbar.fixed .logo a span {
   color: #fff;
 }
 
