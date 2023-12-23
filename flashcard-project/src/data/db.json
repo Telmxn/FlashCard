@@ -12,13 +12,5 @@
       "status": "Learned"
     }
   ],
-  "messages": [
-    {
-      "id": "130184a5-3840-4f57-9f86-ab7c67299c1b",
-      "name": "Telman",
-      "email": "telmanyusifov78@gmail.com",
-      "subject": "Test",
-      "message": "Tested"
-    }
-  ]
+  "messages": []
 }
