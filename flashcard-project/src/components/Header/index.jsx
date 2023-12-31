@@ -8,7 +8,11 @@ const Header = () => {
   return (
     <header>
       <nav
-        className={`navbar ${location.pathname == "/contact" ? "fixed" : ""}`}
+        className={`navbar ${
+          location.pathname == "/contact" || location.pathname == "/flashcards"
+            ? "fixed"
+            : ""
+        }`}
       >
         <div className="max-width">
           <div className="logo">

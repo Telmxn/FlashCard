@@ -39,14 +39,13 @@
   font-weight: 500;
   margin-left: 25px;
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 .navbar .menu li a:hover {
   color: var(--main-default);
-  cursor: pointer;
 }
 .navbar.sticky .menu li a:hover {
   color: var(--grey);
-  cursor: pointer;
 }
 
 .menu-btn {

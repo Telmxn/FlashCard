@@ -59,6 +59,10 @@ textarea {
   color: #fff;
 }
 
+.navbar.fixed .menu li a:hover {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .contact .contact-content .column {
     width: 90%;

@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Menu = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
-      <ul className="menu">
+      <ul className={`${menuOpen ? "active" : ""} menu`}>
         <li>
           <NavLink
             to={"/"}
@@ -35,8 +38,8 @@ const Menu = () => {
           </NavLink>
         </li>
       </ul>
-      <div className="menu-btn">
-        <i className="fas fa-bars"></i>
+      <div className="menu-btn" onClick={() => setMenuOpen((prev) => !prev)}>
+        <i className={`${menuOpen ? "active" : ""} fas fa-bars`}></i>
       </div>
     </>
   );
