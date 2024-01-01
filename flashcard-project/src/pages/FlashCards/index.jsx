@@ -1,127 +1,68 @@
+import { useEffect, useRef, useState } from "react";
+import FlashCard from "../../components/FlashCard";
+import Modal from "../../components/Modal";
 import "./flashcards.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getCards, updateOrder } from "../../store/actions/flashCardThunk";
+import Sortable from "sortablejs";
 
 const FlashCards = () => {
+  const dispatch = useDispatch();
+
+  const gridRef = useRef(null);
+  const sortableJsRef = useRef(null);
+
+  // const [data, setData] = useState();
+
+  const { cards } = useSelector((state) => state.card);
+
+  useEffect(() => {
+    dispatch(getCards());
+
+    sortableJsRef.current = new Sortable(gridRef.current, {
+      animation: 150,
+      onEnd: onListChange,
+    });
+  }, []);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [header, setHeader] = useState("Create");
+
+  const handleOpenModal = (h) => {
+    setHeader(h);
+    setIsModalOpen(true);
+  };
+
+  function onListChange() {
+    [...gridRef.current.children].map((i, index) => {
+      dispatch(updateOrder({ id: i.dataset.id, order: index }));
+    });
+  }
+
   return (
     <>
       <section id="flash-cards">
-        <button>Create Card</button>
+        <button onClick={() => handleOpenModal("Create")}>Create Card</button>
         <div className="cards-container">
-          <div className="card-holder">
-            <div className="deck">
-              <div className="card">
-                <div className="front face">
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                  <button className="flip rad-button">Flip me</button>
-                </div>
-                <div className="back face">
-                  <button className="return flip">
-                    <i className="fa fa-undo"></i>
-                  </button>
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="deck">
-              <div className="card">
-                <div className="front face">
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                  <button className="flip rad-button">Flip me</button>
-                </div>
-                <div className="back face">
-                  <button className="return flip">
-                    <i className="fa fa-undo"></i>
-                  </button>
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="deck">
-              <div className="card">
-                <div className="front face">
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                  <button className="flip rad-button">Flip me</button>
-                </div>
-                <div className="back face">
-                  <button className="return flip">
-                    <i className="fa fa-undo"></i>
-                  </button>
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="deck">
-              <div className="card">
-                <div className="front face">
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                  <button className="flip rad-button">Flip me</button>
-                </div>
-                <div className="back face">
-                  <button className="return flip">
-                    <i className="fa fa-undo"></i>
-                  </button>
-                  <span className="edit-card">
-                    <i className="fa-solid fa-pen"></i>
-                  </span>
-                  <span className="delete-card">
-                    <i className="fa-solid fa-trash"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="card-holder" ref={gridRef}>
+            {cards?.map((card) => {
+              return (
+                <FlashCard
+                  key={card.id}
+                  handleOpenModal={handleOpenModal}
+                  {...card}
+                />
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <div id="myModal" className="modal">
-        <div className="modal-content">
-          <div className="modal-header">
-            <span className="close">&times;</span>
-            <h2>Modal Header</h2>
-          </div>
-          <div className="modal-body">
-            <p>Some text in the Modal Body</p>
-            <p>Some other text...</p>
-          </div>
-          <div className="modal-footer">
-            <h3>Modal Footer</h3>
-          </div>
-        </div>
-      </div>
+      <Modal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        header={header}
+      />
     </>
   );
 };
