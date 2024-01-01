@@ -2,7 +2,7 @@
   "cards": [
     {
       "id": 1,
-      "order": 2,
+      "order": 6,
       "text": "Vizi bili bende",
       "question": "You",
       "image": null,
@@ -23,30 +23,6 @@
       "dateTime": "12/12/2023 22:26",
       "status": "Noted",
       "id": 2
-    },
-    {
-      "text": "Test",
-      "question": "test",
-      "image": "",
-      "answer": "test",
-      "description": "test",
-      "answerImage": "",
-      "dateTime": "01-01-2024 09:19:55",
-      "status": "Learned",
-      "id": 3,
-      "order": 0
-    },
-    {
-      "text": "test2",
-      "question": "test2",
-      "image": "",
-      "answer": "tse",
-      "description": "tes",
-      "answerImage": "",
-      "dateTime": "01-01-2024 09:20:29",
-      "status": "Want to Learn",
-      "id": 4,
-      "order": 3
     }
   ],
   "messages": []

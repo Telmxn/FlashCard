@@ -23,15 +23,20 @@ const Modal = ({ isModalOpen, setIsModalOpen, header, id }) => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!id) {
       dispatch(
         createCard({
           text: shortTextRef.current.value,
           question: questionRef.current.value,
-          image: questionImageRef.current.value,
+          image: questionImageRef.current.files[0]
+            ? URL.createObjectURL(questionImageRef.current.files[0])
+            : "",
           answer: answerRef.current.value,
           description: answerTextRef.current.value,
-          answerImage: answerImageRef.current.value,
+          answerImage: answerImageRef.current.files[0]
+            ? URL.createObjectURL(answerImageRef.current.files[0])
+            : "",
           dateTime: moment().format("DD-MM-YYYY hh:mm:ss"),
           status: "Want to Learn",
         })

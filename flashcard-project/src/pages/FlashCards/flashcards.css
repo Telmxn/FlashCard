@@ -53,6 +53,10 @@ button:focus {
   padding: 30px 20px;
 }
 
+.face img {
+  width: 100%;
+}
+
 .back {
   overflow: hidden;
   z-index: -1;
