@@ -51,7 +51,6 @@ const updateFlashCard = async ({
   description,
   answerImage,
   dateTime,
-  status,
 }) => {
   try {
     const datab = {
@@ -63,7 +62,6 @@ const updateFlashCard = async ({
       description: description,
       answerImage: answerImage,
       dateTime: dateTime,
-      status: status,
     };
     await instance.put(`cards/${id}`, datab, {
       headers: {

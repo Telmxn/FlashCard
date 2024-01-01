@@ -56,17 +56,7 @@ export const getCards = createAsyncThunk(
 export const updateCard = createAsyncThunk(
   "card/updateCard",
   async (
-    {
-      id,
-      text,
-      question,
-      image,
-      answer,
-      description,
-      answerImage,
-      dateTime,
-      status,
-    },
+    { id, text, question, image, answer, description, answerImage, dateTime },
     thunkAPI
   ) => {
     try {
@@ -79,7 +69,6 @@ export const updateCard = createAsyncThunk(
         description,
         answerImage,
         dateTime,
-        status,
       });
       return data;
     } catch (error) {

@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCard } from "../store/actions/flashCardThunk";
+import { createCard, updateCard } from "../store/actions/flashCardThunk";
 import moment from "moment";
 
-const Modal = ({ isModalOpen, setIsModalOpen, header, id }) => {
+const Modal = ({
+  isModalOpen,
+  setIsModalOpen,
+  header,
+  setUpdateCard,
+  id,
+  text,
+  question,
+  answer,
+  description,
+}) => {
   const [isQuestion, setIsQuestion] = useState(true);
   const [isAnswerQuestion, setIsAnswerQuestion] = useState(true);
 
@@ -24,7 +34,7 @@ const Modal = ({ isModalOpen, setIsModalOpen, header, id }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!id) {
+    if (header == "Create") {
       dispatch(
         createCard({
           text: shortTextRef.current.value,
@@ -41,9 +51,45 @@ const Modal = ({ isModalOpen, setIsModalOpen, header, id }) => {
           status: "Want to Learn",
         })
       );
+    } else if (header == "Edit") {
+      dispatch(
+        updateCard({
+          id: id,
+          text: shortTextRef.current.value,
+          question: questionRef.current.value,
+          image: questionImageRef.current.files[0]
+            ? URL.createObjectURL(questionImageRef.current.files[0])
+            : "",
+          answer: answerRef.current.value,
+          description: answerTextRef.current.value,
+          answerImage: answerImageRef.current.files[0]
+            ? URL.createObjectURL(answerImageRef.current.files[0])
+            : "",
+          dateTime: moment().format("DD-MM-YYYY hh:mm:ss"),
+        })
+      );
+      setUpdateCard();
     }
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    if (header == "Edit") {
+      shortTextRef.current.value = text;
+      questionRef.current.value = question;
+      answerRef.current.value = answer;
+      answerTextRef.current.value = description;
+      questionImageRef.current.value = "";
+      answerImageRef.current.value = "";
+    } else if (header == "Create") {
+      shortTextRef.current.value = "";
+      questionRef.current.value = "";
+      questionImageRef.current.value = "";
+      answerRef.current.value = "";
+      answerTextRef.current.value = "";
+      answerImageRef.current.value = "";
+    }
+  }, [id, header]);
 
   return (
     <div

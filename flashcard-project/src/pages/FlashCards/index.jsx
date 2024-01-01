@@ -39,6 +39,8 @@ const FlashCards = () => {
     });
   }
 
+  const [updateCard, setUpdateCard] = useState();
+
   return (
     <>
       <section id="flash-cards">
@@ -50,6 +52,7 @@ const FlashCards = () => {
                 <FlashCard
                   key={card.id}
                   handleOpenModal={handleOpenModal}
+                  setUpdateCard={setUpdateCard}
                   {...card}
                 />
               );
@@ -62,6 +65,8 @@ const FlashCards = () => {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         header={header}
+        setUpdateCard={setUpdateCard}
+        {...updateCard}
       />
     </>
   );

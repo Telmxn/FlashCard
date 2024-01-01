@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateStatus } from "../store/actions/flashCardThunk";
+import { deleteCard, updateStatus } from "../store/actions/flashCardThunk";
 
 const FlashCard = ({
   handleOpenModal,
+  setUpdateCard,
   id,
   text,
   question,
@@ -12,7 +13,6 @@ const FlashCard = ({
   answer,
   description,
   answerImage,
-  // dateTime,
   status,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -36,6 +36,25 @@ const FlashCard = ({
 
   const statuses = ["Learned", "Want to Learn", "Noted"];
 
+  const handleEdit = () => {
+    handleOpenModal("Edit");
+    setUpdateCard({
+      id: id,
+      text: text,
+      question: question,
+      image: image,
+      answer: answer,
+      description: description,
+      answerImage: answerImage,
+    });
+  };
+
+  const handleDelete = () => {
+    if (confirm("Are you sure?")) {
+      dispatch(deleteCard({ id: id }));
+    }
+  };
+
   return (
     <div
       data-id={id}
@@ -43,10 +62,10 @@ const FlashCard = ({
       onClick={handleFlip}
       id={`product-${id}`}
     >
-      <button className="edit-card" onClick={() => handleOpenModal("Edit")}>
+      <button className="edit-card" onClick={handleEdit}>
         <i className="fa-solid fa-pen"></i>
       </button>
-      <button className="delete-card">
+      <button className="delete-card" onClick={handleDelete}>
         <i className="fa-solid fa-trash"></i>
       </button>
       <div className="front face">
