@@ -9,6 +9,7 @@ const Modal = ({
   setIsModalOpen,
   header,
   setUpdateCard,
+  handleSort,
   id,
   text,
   question,
@@ -71,6 +72,9 @@ const Modal = ({
       setUpdateCard();
     }
     setIsModalOpen(false);
+    setTimeout(() => {
+      handleSort();
+    }, 500);
   };
 
   useEffect(() => {

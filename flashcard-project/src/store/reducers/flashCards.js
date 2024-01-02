@@ -23,8 +23,7 @@ export const flashCardSlice = createSlice({
       .addCase(createCard.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(createCard.fulfilled, (state, { payload }) => {
-        state.cards = payload;
+      .addCase(createCard.fulfilled, (state) => {
         state.status = "fulfilled";
       })
       .addCase(createCard.rejected, (state, { payload }) => {
@@ -47,8 +46,7 @@ export const flashCardSlice = createSlice({
       .addCase(updateCard.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateCard.fulfilled, (state, { payload }) => {
-        state.cards = payload;
+      .addCase(updateCard.fulfilled, (state) => {
         state.status = "fulfilled";
       })
       .addCase(updateCard.rejected, (state, { payload }) => {
@@ -59,8 +57,7 @@ export const flashCardSlice = createSlice({
       .addCase(updateStatus.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateStatus.fulfilled, (state, { payload }) => {
-        state.cards = payload;
+      .addCase(updateStatus.fulfilled, (state) => {
         state.status = "fulfilled";
       })
       .addCase(updateStatus.rejected, (state, { payload }) => {
@@ -71,8 +68,7 @@ export const flashCardSlice = createSlice({
       .addCase(updateOrder.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(updateOrder.fulfilled, (state, { payload }) => {
-        state.cards = payload;
+      .addCase(updateOrder.fulfilled, (state) => {
         state.status = "fulfilled";
       })
       .addCase(updateOrder.rejected, (state, { payload }) => {

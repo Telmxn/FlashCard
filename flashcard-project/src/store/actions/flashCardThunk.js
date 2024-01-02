@@ -43,9 +43,9 @@ export const createCard = createAsyncThunk(
 
 export const getCards = createAsyncThunk(
   "card/getCards",
-  async (_, thunkAPI) => {
+  async ({ sort }, thunkAPI) => {
     try {
-      const data = await fetchFlashCards();
+      const data = await fetchFlashCards({ sort });
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue("Error has occured.");

@@ -3,18 +3,39 @@
   margin: 0 auto;
 }
 
-#flash-cards > button {
+.topPart {
+  display: flex;
+  width: 1250px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+}
+.topPart button {
   width: fit-content;
-  display: block;
+  display: inline-block;
   color: var(--main-default);
   font-size: 20px;
   font-weight: 500;
   padding: 10px 30px;
-  margin: 20px auto;
   border-radius: 6px;
   border: 2px solid var(--main-default);
   transition: all 0.3s ease-in-out;
 }
+.topPart input,
+.topPart select {
+  font-size: 20px;
+  padding: 10px 10px;
+  border-radius: 6px;
+  border: 2px solid var(--main-default);
+  outline: none;
+}
+
+.topPart .searchPart button {
+  padding: 10px 10px;
+  background: white;
+  margin-left: 10px;
+}
+
 #flash-cards > button:hover {
   color: white;
   background: var(--main-default);
@@ -33,7 +54,6 @@ button:focus {
   user-select: none;
   cursor: pointer;
   margin: 15px;
-  width: 270px;
   height: 380px;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;

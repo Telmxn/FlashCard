@@ -1,8 +1,8 @@
 import { instance } from ".";
 
-const fetchFlashCards = async () => {
+const fetchFlashCards = async ({ sort }) => {
   try {
-    const { data } = await instance.get(`cards?_sort=order`);
+    const { data } = await instance.get(`cards?${sort}`);
     return data;
   } catch (error) {
     throw new Error(error);
@@ -35,8 +35,8 @@ const createFlashCard = async ({
         "Content-Type": "application/json",
       },
     });
-    const { data } = await instance.get(`cards`);
-    return data;
+    // const { data } = await instance.get(`cards`);
+    // return data;
   } catch (error) {
     throw new Error(error);
   }
@@ -63,13 +63,13 @@ const updateFlashCard = async ({
       answerImage: answerImage,
       dateTime: dateTime,
     };
-    await instance.put(`cards/${id}`, datab, {
+    await instance.patch(`cards/${id}`, datab, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const { data } = await instance.get(`cards`);
-    return data;
+    // const { data } = await instance.get(`cards`);
+    // return data;
   } catch (error) {
     throw new Error(error);
   }
@@ -85,8 +85,6 @@ const updateStatusOfFlashCard = async ({ id, status }) => {
         "Content-Type": "application/json",
       },
     });
-    const { data } = await instance.get(`cards`);
-    return data;
   } catch (error) {
     throw new Error(error);
   }
@@ -102,8 +100,6 @@ const updateOrderOfFlashCard = async ({ id, order }) => {
         "Content-Type": "application/json",
       },
     });
-    const { data } = await instance.get(`cards`);
-    return data;
   } catch (error) {
     throw new Error(error);
   }
