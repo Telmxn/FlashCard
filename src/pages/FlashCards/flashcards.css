@@ -102,7 +102,16 @@ button:focus {
   transition: all 0.5s linear;
 }
 
-.card button,
+.card button {
+  position: absolute;
+  opacity: 0;
+  transition: 0.5s all;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  transition: all 0.3s;
+}
+
 .card input[type="checkbox"] {
   position: absolute;
   opacity: 0;
@@ -119,6 +128,12 @@ button:focus {
 
 .card button:hover i {
   color: var(--main-default);
+}
+
+.card input[type="checkbox"] {
+  top: 7px;
+  right: 67px;
+  z-index: 2;
 }
 
 .edit-card {
@@ -139,7 +154,8 @@ button:focus {
   box-shadow: 5px 5px 5px #aaa;
 }
 
-.card:hover button {
+.card:hover button,
+.card:hover input[type="checkbox"] {
   opacity: 1;
 }
 

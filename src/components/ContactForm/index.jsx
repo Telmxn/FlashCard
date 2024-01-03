@@ -5,6 +5,8 @@ import "./contactForm.css";
 import { sendMessage } from "../../store/actions/messageThunk";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React from 'react';
+
 
 const ContactForm = () => {
   const dispatch = useDispatch();

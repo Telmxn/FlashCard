@@ -35,6 +35,8 @@ const createFlashCard = async ({
         "Content-Type": "application/json",
       },
     });
+    // const { data } = await instance.get(`cards`);
+    // return data;
   } catch (error) {
     throw new Error(error);
   }
@@ -66,6 +68,8 @@ const updateFlashCard = async ({
         "Content-Type": "application/json",
       },
     });
+    // const { data } = await instance.get(`cards`);
+    // return data;
   } catch (error) {
     throw new Error(error);
   }

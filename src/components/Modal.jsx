@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createCard, updateCard } from "../store/actions/flashCardThunk";
 import moment from "moment";
+import React from 'react';
+
 
 const Modal = ({
   isModalOpen,

@@ -1,3 +1,4 @@
+import React from 'react';
 import "./aboutme.css";
 import me from "../../assets/images/me.jpg";
 import cv from "../../assets/pdf/Murad Jafarov CV.pdf";

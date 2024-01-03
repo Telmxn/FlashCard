@@ -5,6 +5,7 @@ import "./flashcards.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getCards, updateOrder } from "../../store/actions/flashCardThunk";
 import Sortable from "sortablejs";
+import React from "react";
 
 const FlashCards = () => {
   const dispatch = useDispatch();
@@ -16,16 +17,50 @@ const FlashCards = () => {
   const searchRef = useRef();
 
   const { cards } = useSelector((state) => state.card);
+  const [selectedCards, setSelectedCards] = useState([]);
 
-  const cardsPerPage = 12;
-  const [displayedCards, setDisplayedCards] = useState([]);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(cardsPerPage);
+  const handleCardSelection = (cardId) => {
+    setSelectedCards((prevSelected) => {
+      if (prevSelected.includes(cardId)) {
+        return prevSelected.filter((id) => id !== cardId);
+      } else {
+        return [...prevSelected, cardId];
+      }
+    });
+  };
+
+  const generateJSONForSelectedCards = () => {
+    const selectedCardData = cards.filter((card) =>
+      selectedCards.includes(card.id)
+    );
+
+    const jsonData = selectedCardData.map((card) => ({
+      id: card.id,
+      text: card.text,
+      question: card.question,
+      image: card.image,
+      answer: card.answer,
+      description: card.description,
+      answerImage: card.answerImage,
+      status: card.status,
+      dateTime: card.dateTime,
+    }));
+
+    return JSON.stringify(jsonData, null, 2);
+  };
+
+  const sendEmailWithJSON = () => {
+    const jsonContent = generateJSONForSelectedCards();
+
+    const mailtoLink = `mailto:?subject=FlashCards&body=${encodeURIComponent(
+      jsonContent
+    )}`;
+    window.location.href = mailtoLink;
+  };
 
   useEffect(() => {
     dispatch(getCards({ sort: "_sort=dateTime&_order=asc" }));
   }, []);
-
   useEffect(() => {
     if (!searchedCards) {
       sortableJsRef.current = new Sortable(gridRef.current, {
@@ -34,37 +69,6 @@ const FlashCards = () => {
       });
     }
   }, [searchedCards]);
-
-  useEffect(() => {
-    if (searchedCards) {
-      if (searchedCards.length > 0) {
-        if (startIndex < searchedCards.length) {
-          setDisplayedCards((prev) => [
-            ...prev,
-            ...searchedCards.slice(startIndex, endIndex),
-          ]);
-        }
-      }
-    } else if (filteredCards) {
-      if (filteredCards.length > 0) {
-        if (startIndex < filteredCards.length) {
-          setDisplayedCards((prev) => [
-            ...prev,
-            ...filteredCards.slice(startIndex, endIndex),
-          ]);
-        }
-      }
-    } else {
-      if (cards.length > 0) {
-        if (startIndex < cards.length) {
-          setDisplayedCards((prev) => [
-            ...prev,
-            ...cards.slice(startIndex, endIndex),
-          ]);
-        }
-      }
-    }
-  }, [cards, startIndex, endIndex]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [header, setHeader] = useState("Create");
@@ -87,7 +91,6 @@ const FlashCards = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     const searchText = searchRef.current.value;
-
     const res = cards.filter((card) => {
       if (
         card.text.includes(searchText) ||
@@ -147,28 +150,6 @@ const FlashCards = () => {
     );
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight - 5 && !isLoading) {
-      setIsLoading(true);
-      setTimeout(() => {
-        setStartIndex(endIndex);
-        setEndIndex(endIndex + cardsPerPage);
-        setIsLoading(false);
-      }, 1000); // Simulated delay
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", () => handleScroll());
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [startIndex, endIndex, isLoading]);
-
   return (
     <>
       <section id="flash-cards">
@@ -189,6 +170,9 @@ const FlashCards = () => {
             <option value="order_asc">By Order asc</option>
             <option value="order_desc">By Order desc</option>
           </select>
+          {selectedCards.length > 0 && (
+            <button onClick={sendEmailWithJSON}>Share</button>
+          )}
           <button onClick={() => handleOpenModal("Create")}>Create Card</button>
         </div>
         <div className="cards-container">
@@ -200,31 +184,33 @@ const FlashCards = () => {
                       key={card.id}
                       handleOpenModal={handleOpenModal}
                       setUpdateCard={setUpdateCard}
-                      handleSort={handleSort}
+                      isSelected={selectedCards.includes(card.id)}
+                      handleCardSelection={handleCardSelection}
                       {...card}
                     />
                   );
                 })
               : filteredCards
               ? filteredCards?.map((card) => {
-                  console.log("Filter");
                   return (
                     <FlashCard
                       key={card.id}
                       handleOpenModal={handleOpenModal}
                       setUpdateCard={setUpdateCard}
-                      handleSort={handleSort}
+                      isSelected={selectedCards.includes(card.id)}
+                      handleCardSelection={handleCardSelection}
                       {...card}
                     />
                   );
                 })
-              : displayedCards?.map((card) => {
+              : cards?.map((card) => {
                   return (
                     <FlashCard
                       key={card.id}
                       handleOpenModal={handleOpenModal}
                       setUpdateCard={setUpdateCard}
-                      handleSort={handleSort}
+                      isSelected={selectedCards.includes(card.id)}
+                      handleCardSelection={handleCardSelection}
                       {...card}
                     />
                   );

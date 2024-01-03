@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import "./projects.css";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
+import React from 'react';
+
 
 const Projects = () => {
   const arr = [

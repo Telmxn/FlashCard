@@ -1,5 +1,7 @@
 import AboutMe from "../../components/AboutMe";
 import Projects from "../../components/Projects";
+import React from 'react';
+
 import "./home.css";
 
 const Home = () => {

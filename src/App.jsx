@@ -4,6 +4,8 @@ import "./App.css";
 import Layout from "./components/Layout";
 import Contact from "./pages/Contact";
 import FlashCards from "./pages/FlashCards";
+import React from 'react';
+
 
 function App() {
   return (

@@ -2,9 +2,8 @@
   display: flex;
   /* background: url("https://images.pexels.com/photos/4360449/pexels-photo-4360449.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") no-repeat center; */
   /* background: url("http://st.gde-fon.com/wallpapers_original/33970_nebo_voda_otrazhenie_lodki_doma_2000x1500_www.Gde-Fon.com.jpg") no-repeat center; */
-  background: url("http://st.gde-fon.com/wallpapers_original/33970_nebo_voda_otrazhenie_lodki_doma_2000x1500_www.Gde-Fon.com.jpg")
+  background: url("https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg")
     no-repeat center;
-
   height: 100vh;
   color: var(--grey);
   min-height: 500px;

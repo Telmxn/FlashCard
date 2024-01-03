@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteCard, updateStatus } from "../store/actions/flashCardThunk";
+import React from 'react';
+
 
 const FlashCard = ({
   handleOpenModal,
   setUpdateCard,
-  handleSort,
   id,
   text,
   question,
@@ -15,6 +16,8 @@ const FlashCard = ({
   description,
   answerImage,
   status,
+  isSelected,
+  handleCardSelection,
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -23,8 +26,8 @@ const FlashCard = ({
   const handleFlip = (e) => {
     if (
       e.target instanceof HTMLButtonElement ||
-      e.target.classList.contains("fa-solid") ||
-      e.target instanceof HTMLInputElement
+      e.target instanceof HTMLInputElement ||
+      e.target.classList.contains("fa-solid")
     ) {
       return;
     } else {
@@ -34,7 +37,6 @@ const FlashCard = ({
 
   const handleStatus = (e) => {
     dispatch(updateStatus({ id: id, status: e.target.value }));
-    handleSort();
   };
 
   const statuses = ["Learned", "Want to Learn", "Noted"];
@@ -65,6 +67,11 @@ const FlashCard = ({
       onClick={handleFlip}
       id={`product-${id}`}
     >
+      <input
+        type="checkbox"
+        checked={isSelected}
+        onChange={() => handleCardSelection(id)}
+      />
       <button className="edit-card" onClick={handleEdit}>
         <i className="fa-solid fa-pen"></i>
       </button>

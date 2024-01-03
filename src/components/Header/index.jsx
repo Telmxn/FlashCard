@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import Menu from "../Menu";
 import "./header.css";
+import React from 'react';
+
 
 const Header = () => {
   const location = useLocation();
